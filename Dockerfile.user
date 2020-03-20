@@ -6,7 +6,7 @@ RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/toslive/pacm
 # Update database data
 RUN pacman -Syu --noconfirm
 
-RUN pacman -Syu git base-devel system-updater ccat lsb-release --noconfirm
+RUN pacman -Syu git base-devel system-updater ccat lsb-release tos-tools --noconfirm
 
 # clear the pacman cache
 RUN pacman -Sc --noconfirm
@@ -25,4 +25,23 @@ RUN pacman -Rns go --noconfirm
 # tos version
 RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/toslive/version-edit.txt > /etc/version
 
-CMD ["su", "-", "user", "-c", "/bin/bash"]
+
+# Setup zsh
+
+RUN pacman -Syu zsh --noconfirm && su - user -c '\
+curl https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -o install.sh && \
+export RUNZSH=no && \
+export CHSH=no && \
+sh install.sh && \
+rm install.sh && \
+git clone https://github.com/zsh-users/zsh-autosuggestions /home/user/.oh-my-zsh/custom/plugins/zsh-autosuggestions && \
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /home/user/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && \
+git clone https://github.com/zsh-users/zsh-completions.git /home/user/.oh-my-zsh/custom/plugins/zsh-completions && \
+git clone https://github.com/ODEX-TOS/zsh-load /home/user/.oh-my-zsh/load && \
+curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/_tos >/home/user/.oh-my-zsh/custom/plugins/zsh-completions/src/_tos && \
+git clone https://github.com/denysdovhan/spaceship-prompt.git "/home/user/.oh-my-zsh/custom/themes/spaceship-prompt" && \
+ln -s "/home/user/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme" "/home/user/.oh-my-zsh/custom/themes/spaceship.zsh-theme"'
+
+RUN pacman -Sc --noconfirm
+
+CMD ["su", "-", "user", "-c", "/bin/zsh"]
