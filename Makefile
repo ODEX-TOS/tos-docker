@@ -1,6 +1,6 @@
 DOCKER_USER?=f0xedb
-IMAGE_NAME?=tos
-IMAGE_NAME_USER?=tos-user
+IMAGE_NAME?=tos-base
+IMAGE_NAME_USER?=tos
 
 all: all-tos all-user
 all-tos: build tag push
