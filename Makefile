@@ -40,6 +40,10 @@ tag-user:
 tag-gui:
 	docker tag ${IMAGE_NAME_GUI} ${DOCKER_USER}/${IMAGE_NAME_GUI}:latest
 
+pull:
+	docker pull ${DOCKER_USER}/${IMAGE_NAME}:latest
+	docker pull ${DOCKER_USER}/${IMAGE_NAME_USER}:latest
+	docker pull ${DOCKER_USER}/${IMAGE_NAME_GUI}:latest
 
 run:
 	docker run -it ${IMAGE_NAME}
@@ -62,6 +66,6 @@ push-gui:
 
 
 clean:
-	docker image rm ${IMAGE_NAME}
-	docker image rm ${IMAGE_NAME_USER}
-	docker image rm ${IMAGE_NAME_GUI}
+	docker image rm --force ${IMAGE_NAME}
+	docker image rm --force ${IMAGE_NAME_USER}
+	docker image rm --force ${IMAGE_NAME_GUI}
