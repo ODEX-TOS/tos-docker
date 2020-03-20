@@ -6,7 +6,7 @@ RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/toslive/pacm
 # Update database data
 RUN pacman -Syu --noconfirm
 
-RUN pacman -Syu git base-devel system-updater ccat lsb-release awesome-tos st ttf-symbola-free neofetch feh --noconfirm
+RUN pacman -Syu git base-devel system-updater ccat lsb-release awesome-tos st ttf-symbola-free neofetch feh ttf-inconsolata python-pywal xorg-xrdb psmisc xorg-setxkbmap --noconfirm
 
 # clear the pacman cache
 RUN pacman -Sc --noconfirm
@@ -23,5 +23,10 @@ RUN curl https://raw.githubusercontent.com/ODEX-TOS/dotfiles/master/tos/colors.c
 RUN curl https://raw.githubusercontent.com/ODEX-TOS/dotfiles/master/tos/floating.conf > /root/.config/tos/floating.conf
 RUN curl https://raw.githubusercontent.com/ODEX-TOS/dotfiles/master/tos/icons.conf > /root/.config/tos/icons.conf
 RUN curl https://raw.githubusercontent.com/ODEX-TOS/dotfiles/master/tos/tags.conf > /root/.config/tos/tags.conf
+
+# install Xresources
+RUN curl https://raw.githubusercontent.com/ODEX-TOS/dotfiles/master/.Xresources > /root/.Xresources
+
+RUN echo -e "off\ntime=1800\nfull=off\nbluetooth=false\n/root/Pictures/drawing/cabin.png\n" > /root/.config/tos/theme
 
 CMD ["/usr/bin/awesome"]
