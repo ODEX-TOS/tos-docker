@@ -85,6 +85,15 @@ systemctl start docker && systemctl enable docker
 
 ## Usage
 
+### Use our image
+
+```sh
+docker pull f0xedb/tos:latest
+docker pull f0xedb/tos-user:latest
+```
+
+### Build your own image
+
 > Everything below will be explained using `make` and a `Makefile` if you wish to run the commands yourself look into the `Makefile`
 
 ### Build the docker containers
@@ -113,7 +122,7 @@ make all-user
 If you wish to rename the image or upload to a different docker user do the following
 
 ```sh
-DOCKER_USER="f0xedb" IMAGE_NAME="tos" IMAGE_NAME_USER="tos-user" make all
+DOCKER_USER="f0xedb" IMAGE_NAME="tos-base" IMAGE_NAME_USER="tos" make all
 ```
 
 `DOCKER_USER` is an env variable that holds the user to upload the images to
