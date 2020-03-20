@@ -4,7 +4,7 @@ IMAGE_NAME_USER?=tos
 IMAGE_NAME_GUI?=tos-gui
 
 
-all: all-tos all-user
+all: all-tos all-user all-gui
 all-tos: build tag push
 all-user: build-user tag-user push-user
 all-gui: build-gui tag-gui push-gui
