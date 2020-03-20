@@ -2,6 +2,8 @@ DOCKER_USER?=f0xedb
 IMAGE_NAME?=tos-base
 IMAGE_NAME_USER?=tos
 IMAGE_NAME_GUI?=tos-gui
+WIDTH?=640
+HEIGHT?=480
 
 
 all: all-tos all-user all-gui
