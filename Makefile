@@ -13,10 +13,10 @@ build-user:
 	docker build -t ${IMAGE_NAME_USER} - < Dockerfile.user
 
 tag:
-	docker tag tos ${DOCKER_USER}/${IMAGE_NAME}:latest
+	docker tag ${IMAGE_NAME} ${DOCKER_USER}/${IMAGE_NAME}:latest
 
 tag-user:
-	docker tag tos-user ${DOCKER_USER}/${IMAGE_NAME}:latest
+	docker tag ${IMAGE_NAME_USER} ${DOCKER_USER}/${IMAGE_NAME}:latest
 
 run:
 	docker run -it ${IMAGE_NAME}
