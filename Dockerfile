@@ -6,13 +6,10 @@ RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/toslive/pacm
 # Update database data
 RUN pacman -Syu --noconfirm
 
-RUN pacman -Syu git --noconfirm
-
-RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/toslive/version-edit.txt > /etc/version
-
-RUN pacman -Syu system-updater ccat lsb-release --noconfirm
-
-RUN pacman -Syu base-devel --noconfirm
+RUN pacman -Syu git base-devel system-updater ccat lsb-release --noconfirm
 
 # clear the pacman cache
 RUN pacman -Sc --noconfirm
+
+# tos version
+RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/toslive/version-edit.txt > /etc/version
