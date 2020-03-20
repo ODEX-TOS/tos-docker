@@ -9,7 +9,7 @@ all-user: build-user tag-user push-user
 build:
 	docker build -t ${IMAGE_NAME} .
 
-user:
+build-user:
 	docker build -t ${IMAGE_NAME_USER} - < Dockerfile.user
 
 tag:
