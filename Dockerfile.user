@@ -1,0 +1,20 @@
+FROM archlinux/base:latest
+
+# Retreive the tos repo
+RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/toslive/pacman.conf > /etc/pacman.conf
+
+# Update database data
+RUN pacman -Syu --noconfirm
+
+RUN pacman -Syu git base-devel system-updater ccat lsb-release --noconfirm
+
+# clear the pacman cache
+RUN pacman -Sc --noconfirm
+
+# create a user
+RUN adduser user && echo "user ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/user && chmod 0440 /etc/sudoers.d/user
+
+# tos version
+RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/toslive/version-edit.txt > /etc/version
+
+CMD ["su", "-", "user", "-c", "/bin/bash"]
