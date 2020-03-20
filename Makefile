@@ -21,6 +21,16 @@ build-gui:
 	docker build -t ${IMAGE_NAME_GUI} - < Dockerfile.gui
 
 
+build-no-cache:
+	docker build -t ${IMAGE_NAME} --no-cache .
+
+build-user-no-cache:
+	docker build -t ${IMAGE_NAME_USER} --no-cache - < Dockerfile.user
+
+build-gui-no-cache:
+	docker build -t ${IMAGE_NAME_GUI} --no-cache - < Dockerfile.gui
+
+
 tag:
 	docker tag ${IMAGE_NAME} ${DOCKER_USER}/${IMAGE_NAME}:latest
 
@@ -39,7 +49,7 @@ run-user:
 
 run-gui:
 	Xephyr -screen ${WIDTH}x${HEIGHT} :1 &
-	docker run --net=host --env="DISPLAY=:1" -it --volume="${HOME}/.Xauthority:/root/.Xauthority:rw" --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" ${IMAGE_NAME_GUI}
+	docker run --net=host --env="DISPLAY=:1" -it --volume="${HOME}/.Xauthority:/root/.Xauthority:rw" --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" --volume="/etc/vconsole.conf:/etc/vconsole.conf" ${IMAGE_NAME_GUI}
 
 push:
 	docker push ${DOCKER_USER}/${IMAGE_NAME}
