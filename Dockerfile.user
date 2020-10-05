@@ -1,4 +1,4 @@
-FROM archlinux/base:latest
+FROM f0xedb/tos-base:latest
 
 # Retreive the tos repo
 RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/toslive/pacman.conf > /etc/pacman.conf

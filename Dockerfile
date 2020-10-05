@@ -1,12 +1,18 @@
-FROM archlinux/base:latest
+FROM archlinux:latest
 
 # Retreive the tos repo
 RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/toslive/pacman.conf > /etc/pacman.conf
 
-# Update database data
-RUN pacman -Syu --noconfirm
+COPY keyring/tos-revoked /usr/share/pacman/keyrings/tos-revoked 
+COPY keyring/tos-trusted /usr/share/pacman/keyrings/tos-trusted 
+COPY keyring/tos.gpg /usr/share/pacman/keyrings/tos.gpg 
 
-RUN pacman -Syu git base-devel system-updater ccat lsb-release --noconfirm
+# generate the pacman keyring
+RUN pacman-key --init
+RUN pacman-key --populate archlinux tos
+
+
+RUN pacman -Syu git base-devel system-updater ccat lsb-release tos-keyring --noconfirm --overwrite '/usr/share/pacman/keyrings/tos*'
 
 # clear the pacman cache
 RUN pacman -Sc --noconfirm

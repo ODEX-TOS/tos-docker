@@ -4,6 +4,7 @@ IMAGE_NAME_USER?=tos
 IMAGE_NAME_GUI?=tos-gui
 WIDTH?=640
 HEIGHT?=480
+VERSION=`date +'%y.%m.%d'`
 
 
 all: all-tos all-user all-gui
@@ -33,12 +34,15 @@ build-gui-no-cache:
 
 tag:
 	docker tag ${IMAGE_NAME} ${DOCKER_USER}/${IMAGE_NAME}:latest
+	docker tag ${IMAGE_NAME} ${DOCKER_USER}/${IMAGE_NAME}:${VERSION}
 
 tag-user:
 	docker tag ${IMAGE_NAME_USER} ${DOCKER_USER}/${IMAGE_NAME_USER}:latest
+	docker tag ${IMAGE_NAME_USER} ${DOCKER_USER}/${IMAGE_NAME_USER}:${VERSION}
 
 tag-gui:
 	docker tag ${IMAGE_NAME_GUI} ${DOCKER_USER}/${IMAGE_NAME_GUI}:latest
+	docker tag ${IMAGE_NAME_GUI} ${DOCKER_USER}/${IMAGE_NAME_GUI}:${VERSION}
 
 pull:
 	docker pull ${DOCKER_USER}/${IMAGE_NAME}:latest
@@ -57,12 +61,15 @@ run-gui:
 
 push:
 	docker push ${DOCKER_USER}/${IMAGE_NAME}
+	docker push ${DOCKER_USER}/${IMAGE_NAME}:${VERSION}
 
 push-user:
 	docker push ${DOCKER_USER}/${IMAGE_NAME_USER}
+	docker push ${DOCKER_USER}/${IMAGE_NAME_USER}:${VERSION}
 
 push-gui:
 	docker push ${DOCKER_USER}/${IMAGE_NAME_GUI}
+	docker push ${DOCKER_USER}/${IMAGE_NAME_GUI}:${VERSION}
 
 
 clean:
