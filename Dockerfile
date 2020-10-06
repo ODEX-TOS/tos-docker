@@ -8,9 +8,7 @@ COPY keyring/tos-trusted /usr/share/pacman/keyrings/tos-trusted
 COPY keyring/tos.gpg /usr/share/pacman/keyrings/tos.gpg 
 
 # generate the pacman keyring
-RUN pacman-key --init
-RUN pacman-key --populate archlinux tos
-
+RUN pacman-key --init && pacman-key --populate
 
 RUN pacman -Syu git base-devel system-updater ccat lsb-release tos-keyring --noconfirm --overwrite '/usr/share/pacman/keyrings/tos*'
 

@@ -1,10 +1,11 @@
 FROM f0xedb/tos-base:latest
 
+ARG user=tos
+
 # Retreive the tos repo
 RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/toslive/pacman.conf > /etc/pacman.conf
 
-# Update database data
-RUN pacman -Syu --noconfirm
+RUN pacman-key --init && pacman-key --populate
 
 RUN pacman -Syu git base-devel system-updater ccat lsb-release tos-tools --noconfirm
 
@@ -12,12 +13,12 @@ RUN pacman -Syu git base-devel system-updater ccat lsb-release tos-tools --nocon
 RUN pacman -Sc --noconfirm
 
 # create a user
-RUN useradd user && echo "user ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/user && chmod 0440 /etc/sudoers.d/user && mkdir -p /home/user && chown user:users /home/user
+RUN useradd $user && echo "$user ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/user && chmod 0440 /etc/sudoers.d/user && mkdir -p /home/$user && chown $user:users /home/$user
 
 # Install yay as a user
-RUN su - user -c "git clone https://aur.archlinux.org/yay.git"
+RUN su - $user -c "git clone https://aur.archlinux.org/yay.git"
 
-RUN su - user -c "cd yay && makepkg -si --noconfirm && cd ../ && rm -rf yay"
+RUN su - $user -c "cd yay && makepkg -si --noconfirm && cd ../ && rm -rf yay"
 
 # remove yay make dependency
 RUN pacman -Rns go --noconfirm
@@ -28,7 +29,7 @@ RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/toslive/vers
 
 # Setup zsh
 
-RUN pacman -Syu zsh --noconfirm && su - user -c '\
+RUN pacman -Syu zsh --noconfirm && su - $user -c '\
 curl https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -o install.sh && \
 export RUNZSH=no && \
 export CHSH=no && \
@@ -44,4 +45,8 @@ ln -s "/home/user/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme"
 
 RUN pacman -Sc --noconfirm
 
-CMD ["su", "-", "user", "-c", "/bin/zsh"]
+RUN chsh --shell /bin/zsh tos
+
+USER tos
+
+CMD ["/bin/zsh"]

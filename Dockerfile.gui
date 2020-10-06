@@ -1,7 +1,5 @@
 FROM f0xedb/tos-base:latest
 
-# Update database data
-RUN pacman -Syu --noconfirm
 
 RUN pacman -Syu git base-devel system-updater ccat lsb-release awesome-tos st ttf-symbola-free neofetch feh ttf-inconsolata python-pywal xorg-xrdb psmisc tos-base-desktop --noconfirm
 
