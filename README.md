@@ -1,3 +1,4 @@
+[![Build Status](https://jenkins.odex.be/buildStatus/icon?job=tos-docker)](https://jenkins.odex.be/view/tos/job/tos-docker/)
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
