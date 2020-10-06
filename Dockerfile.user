@@ -29,19 +29,19 @@ RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/toslive/vers
 
 # Setup zsh
 
-RUN pacman -Syu zsh --noconfirm && NAME=$user su - $user -c '\
+RUN pacman -Syu zsh --noconfirm && NAME=$user su - $user -c "\
 curl https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -o install.sh && \
 export RUNZSH=no && \
 export CHSH=no && \
 sh install.sh && \
 rm install.sh && \
-git clone https://github.com/zsh-users/zsh-autosuggestions /home/$NAME/.oh-my-zsh/custom/plugins/zsh-autosuggestions && \
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /home/$NAME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && \
-git clone https://github.com/zsh-users/zsh-completions.git /home/$NAME/.oh-my-zsh/custom/plugins/zsh-completions && \
-git clone https://github.com/ODEX-TOS/zsh-load /home/$NAME/.oh-my-zsh/load && \
-curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/_tos >/home/$NAME/.oh-my-zsh/custom/plugins/zsh-completions/src/_tos && \
-git clone https://github.com/denysdovhan/spaceship-prompt.git "/home/$NAME/.oh-my-zsh/custom/themes/spaceship-prompt" && \
-ln -s "/home/$NAME/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme" "/home/$NAME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"'
+git clone https://github.com/zsh-users/zsh-autosuggestions /home/${NAME}/.oh-my-zsh/custom/plugins/zsh-autosuggestions && \
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /home/${NAME}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && \
+git clone https://github.com/zsh-users/zsh-completions.git /home/${NAME}/.oh-my-zsh/custom/plugins/zsh-completions && \
+git clone https://github.com/ODEX-TOS/zsh-load /home/${NAME}/.oh-my-zsh/load && \
+curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/_tos >/home/${NAME}/.oh-my-zsh/custom/plugins/zsh-completions/src/_tos && \
+git clone https://github.com/denysdovhan/spaceship-prompt.git /home/${NAME}/.oh-my-zsh/custom/themes/spaceship-prompt && \
+ln -s /home/${NAME}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme /home/${NAME}/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
 
 RUN pacman -Sc --noconfirm
 
