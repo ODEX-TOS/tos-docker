@@ -60,15 +60,15 @@ run-gui:
 	docker run --net=host --env="DISPLAY=:1" -it --volume="${HOME}/.Xauthority:/root/.Xauthority:rw" --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" --volume="/etc/vconsole.conf:/etc/vconsole.conf" ${IMAGE_NAME_GUI}
 
 push:
-	docker push ${DOCKER_USER}/${IMAGE_NAME}
+	docker push ${DOCKER_USER}/${IMAGE_NAME}:latest
 	docker push ${DOCKER_USER}/${IMAGE_NAME}:${VERSION}
 
 push-user:
-	docker push ${DOCKER_USER}/${IMAGE_NAME_USER}
+	docker push ${DOCKER_USER}/${IMAGE_NAME_USER}:latest
 	docker push ${DOCKER_USER}/${IMAGE_NAME_USER}:${VERSION}
 
 push-gui:
-	docker push ${DOCKER_USER}/${IMAGE_NAME_GUI}
+	docker push ${DOCKER_USER}/${IMAGE_NAME_GUI}:latest
 	docker push ${DOCKER_USER}/${IMAGE_NAME_GUI}:${VERSION}
 
 
