@@ -43,7 +43,10 @@ curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/_tos >/home/$use
 git clone https://github.com/denysdovhan/spaceship-prompt.git /home/$user/.oh-my-zsh/custom/themes/spaceship-prompt && \
 ln -s /home/$user/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme /home/$user/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
 
+RUN pacman -Rns base-devel git --noconfirm
+
 RUN pacman -Sc --noconfirm
+
 
 RUN chsh --shell /bin/zsh $user
 
