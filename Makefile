@@ -8,9 +8,9 @@ VERSION=`date +'%y.%m.%d'`
 
 
 all: all-tos all-user all-gui
-all-tos: build tag push
-all-user: build-user tag-user push-user
-all-gui: build-gui tag-gui push-gui
+all-tos: build-no-cache tag push
+all-user: build-user-no-cache tag-user push-user
+all-gui: build-gui-no-cache tag-gui push-gui
 
 build:
 	docker build -t ${IMAGE_NAME} .
