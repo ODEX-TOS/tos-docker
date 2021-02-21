@@ -1,5 +1,6 @@
 DOCKER_USER?=f0xedb
 IMAGE_NAME?=tos-base
+IMAGE_NAME_TEST?=tos-test-suite
 IMAGE_NAME_USER?=tos
 IMAGE_NAME_GUI?=tos-gui
 WIDTH?=640
@@ -7,13 +8,17 @@ HEIGHT?=480
 VERSION=`date +'%y.%m.%d'`
 
 
-all: all-tos all-user all-gui
+all: all-tos all-user all-gui all-test-suite
 all-tos: build-no-cache tag push
+all-test-suite: build-test-suite-no-cache tag-test-suite push-test-suite
 all-user: build-user-no-cache tag-user push-user
 all-gui: build-gui-no-cache tag-gui push-gui
 
 build:
 	docker build -t ${IMAGE_NAME} .
+
+build-test-suite:
+	docker build -t ${IMAGE_NAME} - < Dockerfile.test_suite
 
 build-user:
 	docker build -t ${IMAGE_NAME_USER} - < Dockerfile.user
@@ -25,6 +30,9 @@ build-gui:
 build-no-cache:
 	docker build -t ${IMAGE_NAME} --no-cache .
 
+build-test-suite-no-cache:
+	docker build -t ${IMAGE_NAME} --no-cache - < Dockerfile.test_suite
+
 build-user-no-cache:
 	docker build -t ${IMAGE_NAME_USER} --no-cache - < Dockerfile.user
 
@@ -35,6 +43,10 @@ build-gui-no-cache:
 tag:
 	docker tag ${IMAGE_NAME} ${DOCKER_USER}/${IMAGE_NAME}:latest
 	docker tag ${IMAGE_NAME} ${DOCKER_USER}/${IMAGE_NAME}:${VERSION}
+	
+tag-test-suite:
+	docker tag ${IMAGE_NAME} ${DOCKER_USER}/${IMAGE_NAME_TEST}:latest
+	docker tag ${IMAGE_NAME} ${DOCKER_USER}/${IMAGE_NAME_TEST}:${VERSION}
 
 tag-user:
 	docker tag ${IMAGE_NAME_USER} ${DOCKER_USER}/${IMAGE_NAME_USER}:latest
@@ -46,11 +58,15 @@ tag-gui:
 
 pull:
 	docker pull ${DOCKER_USER}/${IMAGE_NAME}:latest
+	docker pull ${DOCKER_USER}/${IMAGE_NAME_TEST}:latest
 	docker pull ${DOCKER_USER}/${IMAGE_NAME_USER}:latest
 	docker pull ${DOCKER_USER}/${IMAGE_NAME_GUI}:latest
 
 run:
 	docker run -it ${IMAGE_NAME}
+	
+run-test-suite:
+	docker run -it ${IMAGE_NAME_TEST}
 
 run-user:
 	docker run -it ${IMAGE_NAME_USER}
@@ -62,6 +78,10 @@ run-gui:
 push:
 	docker push ${DOCKER_USER}/${IMAGE_NAME}:latest
 	docker push ${DOCKER_USER}/${IMAGE_NAME}:${VERSION}
+	
+push-test-suite:
+	docker push ${DOCKER_USER}/${IMAGE_NAME_TEST}:latest
+	docker push ${DOCKER_USER}/${IMAGE_NAME_TEST}:${VERSION}
 
 push-user:
 	docker push ${DOCKER_USER}/${IMAGE_NAME_USER}:latest
