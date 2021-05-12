@@ -7,7 +7,7 @@ RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/toslive/pacm
 
 RUN pacman-key --init && pacman-key --populate
 
-RUN pacman -Syu git base-devel system-updater ccat lsb-release tos-tools --noconfirm
+RUN pacman -Syu git tos-tools yay --noconfirm
 
 # clear the pacman cache
 RUN pacman -Sc --noconfirm
@@ -15,13 +15,6 @@ RUN pacman -Sc --noconfirm
 # create a user
 RUN useradd $user && echo "$user ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/user && chmod 0440 /etc/sudoers.d/user && mkdir -p /home/$user && chown $user:users /home/$user
 
-# Install yay as a user
-RUN su - $user -c "git clone https://aur.archlinux.org/yay.git"
-
-RUN su - $user -c "cd yay && makepkg -si --noconfirm && cd ../ && rm -rf yay"
-
-# remove yay make dependency
-RUN pacman -Rns go --noconfirm
 
 # tos version
 RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/toslive/version-edit.txt > /etc/version
