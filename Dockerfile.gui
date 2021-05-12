@@ -1,7 +1,7 @@
 FROM f0xedb/tos-base:latest
 
 
-RUN pacman -Syu system-updater ccat lsb-release st ttf-symbola-free neofetch feh ttf-inconsolata xorg-xrdb psmisc tos-base-desktop --noconfirm
+RUN pacman -Syu st ttf-symbola-free neofetch feh ttf-inconsolata xorg-xrdb psmisc tos-base-desktop --noconfirm
 
 # clear the pacman cache
 RUN pacman -Sc --noconfirm
