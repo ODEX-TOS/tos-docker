@@ -10,7 +10,7 @@ COPY keyring/tos.gpg /usr/share/pacman/keyrings/tos.gpg
 # generate the pacman keyring
 RUN pacman-key --init && pacman-key --populate
 
-RUN pacman -Syu system-updater ccat lsb-release tos-keyring --noconfirm --overwrite '/usr/share/pacman/keyrings/tos*'
+RUN pacman -Syu system-updater lsb-release tos-keyring --noconfirm --overwrite '/usr/share/pacman/keyrings/tos*'
 
 # clear the pacman cache
 RUN pacman -Sc --noconfirm
