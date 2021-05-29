@@ -91,6 +91,10 @@ push-gui:
 	docker push ${DOCKER_USER}/${IMAGE_NAME_GUI}:latest
 	docker push ${DOCKER_USER}/${IMAGE_NAME_GUI}:${VERSION}
 
+update-keyring:
+	curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/repo/BUILD/KEYRING/tos-trusted > keyring/tos-trusted
+	curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/repo/BUILD/KEYRING/tos-revoked > keyring/tos-revoked
+	curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/repo/BUILD/KEYRING/tos.gpg > keyring/tos.gpg
 
 clean:
 	docker image rm --force ${IMAGE_NAME}

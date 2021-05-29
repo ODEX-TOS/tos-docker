@@ -2,6 +2,7 @@ FROM archlinux:latest
 
 # Retreive the tos repo
 RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/toslive/pacman.conf > /etc/pacman.conf
+RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/repo/BUILD/TOS-BASE/mirrorlist > /etc/pacman.d/tos-mirrorlist
 
 COPY keyring/tos-revoked /usr/share/pacman/keyrings/tos-revoked 
 COPY keyring/tos-trusted /usr/share/pacman/keyrings/tos-trusted 
