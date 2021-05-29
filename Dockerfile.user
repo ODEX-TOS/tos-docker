@@ -7,7 +7,7 @@ RUN curl https://raw.githubusercontent.com/ODEX-TOS/tos-live/master/toslive/pacm
 
 RUN pacman-key --init && pacman-key --populate
 
-RUN pacman -Syu git tos-tools yay --noconfirm
+RUN pacman -Syu --overwrite="/etc/pacman.d/*" git tos-tools yay --noconfirm
 
 # clear the pacman cache
 RUN pacman -Sc --noconfirm
