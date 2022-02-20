@@ -32,7 +32,7 @@ RUN pacman -Syu zsh neofetch --noconfirm && su - $user -c "\
     sh install.sh && \
     rm install.sh && \
     git clone https://github.com/zsh-users/zsh-autosuggestions /home/$user/.oh-my-zsh/custom/plugins/zsh-autosuggestions && \
-    git clone https://github.com/marlonrichert/fast-syntax-highlighting.git /home/$user/.oh-my-zsh/custom/plugins/fast-syntax-highlighting && \
+    git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git /home/$user/.oh-my-zsh/custom/plugins/fast-syntax-highlighting && \
     git clone https://github.com/zsh-users/zsh-completions.git /home/$user/.oh-my-zsh/custom/plugins/zsh-completions && \
     git clone https://github.com/marlonrichert/zsh-autocomplete.git /home/$user/.oh-my-zsh/custom/plugins/zsh-autocomplete && \
     git clone https://github.com/ODEX-TOS/zsh-load /home/$user/.oh-my-zsh/load && \
